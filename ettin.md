@@ -114,7 +114,7 @@ Due to the lack of new encoder models, works like [LLM2Vec](https://arxiv.org/ab
 We switched the objective and continued to train our models with the opposite objective for 50B additional tokens. This is what we found:
 
 - **Encoder-from-decoder**: Still trails native encoders on classification/retrieval
-- **Decoder-from-encoder**: Significantly worse than native decoders, especially at larger scales. This may be because the encoders were trained with MLM instead of MNTP (masked next token prediction) as proposed by LLM2Vec.
+- **Decoder-from-encoder**: Are significantly worse than native decoders, especially at larger scales. This may be because the encoders were trained with MLM instead of MNTP (masked next token prediction) as proposed by LLM2Vec (and used in our encoder from decoder recipe).
 
 This suggests the architecture choice matters fundamentally, not just the training objective.
 
@@ -131,7 +131,7 @@ This opens doors for systematic studies of how training objectives influence mod
 ## Usage Examples
 You can use these models with just a few lines of code!
 
-**For classification and retrieval tasks, use encoder models:** You may want to use a fine-tuned version for these tasks as well.
+### Encoders
 
 ```python
 from transformers import AutoTokenizer, AutoModel
@@ -158,6 +158,10 @@ masked_text = "The capital of France is [MASK]."
 predictions = predict_masked_token(masked_text)
 print(f"Predictions: {predictions}")
 ```
+
+**For classification and retrieval tasks, use encoder models:** You may want to use a fine-tuned version for these tasks as well.
+
+### Decoders
 
 **For text generation tasks, use decoder models:**
 
