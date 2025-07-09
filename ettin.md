@@ -43,7 +43,7 @@ For classification, retrieval, and embedding tasks, encoder-only models like BER
 - **Encoder models** use bidirectional attention, allowing each token to "see" all other tokens in the sequence (fully visible)
 - **Decoder models** use causal attention, where tokens can only "see" previous tokens to enable autoregressive generation
 
-Yet while decoder models have seen rapid innovation, encoder model development had stagnated -- until recently with efforts like [ModernBERT](https://huggingface.co/blog/modernbert). But which architecture is better? Previous comparisons between encoders and decoders were limited by different datasets, architectures, and training recipes.
+Yet while decoder models have seen rapid innovation, encoder model development had stagnated -- until recently with efforts like [ModernBERT](https://huggingface.co/blog/modernbert) to update them. But which architecture is better? Previous comparisons between encoders and decoders were limited by different datasets, architectures, and training recipes.
 
 Named after the two-headed Norse giant, Ettin provides a **controlled comparison** by training with both architectures on identical data, identical model shapes, and identical training recipes. They only differ in attention patterns and training objectives!
 
@@ -85,7 +85,7 @@ Our encoder models **outperform ModernBERT** across all tasks and model sizes, w
 
 ## Decoder Results: Beating Llama 3.2 and SmolLM2
 
-Applying the same recipe to decoder models yields equally impressive results, with our models **outperforming established baselines**:
+Applying the same recipe to decoder models yields equally impressive results, with our models **outperforming established baselines** such as Llama 3.2 and SmolLM 2:
 
 ![Decoder performance comparison showing Ettin models beating Llama 3.2 and SmolLM2](https://github.com/JHU-CLSP/ettin-encoder-vs-decoder/blob/main/assets/decoder_results.jpg?raw=true)
 
@@ -109,7 +109,7 @@ The results show clear patterns:
 
 ### Cross-Objective Training Falls Short
 
-Due to the lack of new encoder models, works like [LLM2Vec](https://arxiv.org/abs/2404.05961) have proposed continue pre-training decoders with MLM. We can now test whether this is an effective strategy!
+Due to the lack of new encoder models, works like [LLM2Vec](https://arxiv.org/abs/2404.05961) have proposed continue pre-training decoders with MLM. We can now test the effectiveness of this strategy!
 
 We switched the objective and continue trained our models with the opposite objective for 50B additional token. However, we found that:
 
