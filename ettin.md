@@ -28,9 +28,9 @@ authors:
 
 What would happen if you took the ModernBERT recipe and applied it to a decoder-only model? Turns out, a state-of-the-art decoder language model: beating Llama 3.2 1B and SmolLM 2 models! 
 
-We do this by introducing an new open-data training recipe that creates an encoder-only model that beats ModernBERT. We then apply the exact same recipe to decoder-only models. For the first time, we have two state-of-the-art models trained on the same data with two different training objectives: masked language modelling (MLM) and causal language modeling (CLM).
+We introduce an new open-data training recipe to reproduce the encoder-only model ModernBERT (and actually beat it!). We then apply the exact same recipe to decoder-only models. For the first time, we have two state-of-the-art models trained in the same setup but with two different training objectives: masked language modelling (MLM) and causal language modeling (CLM).
 
-This blog post introduces [Ettin](https://huggingface.co/collections/jhu-clsp/encoders-vs-decoders-the-ettin-suite-686303e16142257eed8e6aeb), the first suite of SoTA **paired encoder-only and decoder-only models** (17M-1B params) trained with identical data, architecture, and training recipes. Ettin enables true apples-to-apples comparisons between architectures and delivers **state-of-the-art performance for open-data models** in both categories.
+This blog post introduces [Ettin](https://huggingface.co/collections/jhu-clsp/encoders-vs-decoders-the-ettin-suite-686303e16142257eed8e6aeb), the first suite of SoTA **paired encoder-only and decoder-only models** (17M-1B params) trained with identical data (2T tokens), architecture, and training recipes. Ettin enables true apples-to-apples comparisons between architectures and delivers **state-of-the-art performance for open-data models** in both categories. We then further explore whether it is possible to get a competitive encoder starting from the decoder and vice-versa.
 
 ![Attention patterns comparison between encoder and decoder models](https://github.com/JHU-CLSP/ettin-encoder-vs-decoder/blob/main/assets/attention_masks.png?raw=true)
 
