@@ -22,13 +22,13 @@ authors:
   org: jhu-clsp
 ---
 
-# Seq vs Seq: the Ettin Suite of Paired Encoders and Decoders
+# Ettin Suite: SoTA Paired Encoders and Decoders
 
 ## TL;DR
 
-What would happen if you took the ModernBERT recipe and applied it to a decoder-only model? Turns out, a state-of-the-art decoder language model: beating Llama 3.2 1B and SmolLM 2 models! 
+What would happen if you took the ModernBERT recipe and applied it to a decoder-only model? Turns out, a state-of-the-art decoder language model that beats Llama 3.2 1B and SmolLM2! 
 
-We introduce an new open-data training recipe to reproduce the encoder-only model ModernBERT (and actually beat it!). We then apply the exact same recipe to decoder-only models. For the first time, we have two state-of-the-art models trained in the same setup but with two different training objectives: masked language modelling (MLM) and causal language modeling (CLM).
+We introduce a new open-data training recipe to reproduce the encoder-only ModernBERT model (and actually beat it!). We then apply the exact same recipe to decoder-only models. For the first time, we have two state-of-the-art models trained in the same setup but with two different training objectives: masked language modeling (MLM), and causal language modeling (CLM).
 
 This blog post introduces [Ettin](https://huggingface.co/collections/jhu-clsp/encoders-vs-decoders-the-ettin-suite-686303e16142257eed8e6aeb), the first suite of SoTA **paired encoder-only and decoder-only models** (17M-1B params) trained with identical data (2T tokens), architecture, and training recipes. Ettin enables true apples-to-apples comparisons between architectures and delivers **state-of-the-art performance for open-data models** in both categories. We then further explore whether it is possible to get a competitive encoder starting from the decoder and vice-versa.
 
@@ -36,22 +36,22 @@ This blog post introduces [Ettin](https://huggingface.co/collections/jhu-clsp/en
 
 ## Encoders vs Decoders: The Architecture Divide
 
-The LLM community has largely converged on decoder-only models like GPT, Llama, and Qwen. Their generative capabilities are impressive, but this focus has forgotten about earlier categories such as encoder-only models like BERT.
+The LLM community has largely converged on decoder-only models like GPT, Llama, and Qwen. Their generative capabilities are impressive, but this focus is detracting attention from other categories, such as encoder-only models like BERT.
 
-For classification, retrieval, and embedding tasks, encoder-only models like BERT remain the workhorses of production systems. They're faster, more memory-efficient, and often more accurate for discriminative tasks. The key difference lies in their attention patterns:
+However, encoder BERT-like models remain the workhorses of production systems for classification, retrieval, and embedding tasks. They're faster, more memory-efficient, and often more accurate for discriminative tasks. The key difference lies in their attention patterns:
 
 - **Encoder models** use bidirectional attention, allowing each token to "see" all other tokens in the sequence (fully visible)
 - **Decoder models** use causal attention, where tokens can only "see" previous tokens to enable autoregressive generation
 
-Yet while decoder models have seen rapid innovation, encoder model development had stagnated -- until recently with efforts like [ModernBERT](https://huggingface.co/blog/modernbert) to update them. But which architecture is better? Previous comparisons between encoders and decoders were limited by different datasets, architectures, and training recipes.
+While decoder models have seen rapid innovation, encoder model development had stagnated – until recently, with efforts like [ModernBERT](https://huggingface.co/blog/modernbert) modernizing them. But which architecture is better? Previous comparisons between encoders and decoders used different datasets, architectures, and training recipes, so it was hard to tell.
 
 Named after the two-headed Norse giant, Ettin provides a **controlled comparison** by training with both architectures on identical data, identical model shapes, and identical training recipes. They only differ in attention patterns and training objectives!
 
 ## Training Recipe: Modern Techniques for Both Architectures
-We build on the ModernBERT recipe which used modern decoder-only techniques, providing a strong base for training both architectures.
+We build on the ModernBERT recipe, which borrowed modern techniques from decoder-only models and brought them to encoder training. This provides a strong base for training both architectures.
 
 ### Sizes
-We train six different sizes, ranging from 17m to 1B. This allows us to test the effects of scale and provides a wide variety of models so you can use whether you need a blazing fast on-device model or a powerful but slower model.
+We train six different sizes, ranging from 17M to 1B parameters. This allows us to test the effects of scale, and provides a wide variety of models for you to use – no matter if you need a blazing fast on-device model or a powerful but slower model.
 
 ![Sizes of Ettin models](https://github.com/JHU-CLSP/ettin-encoder-vs-decoder/blob/main/assets/sizes.jpg?raw=true)
 
@@ -66,7 +66,7 @@ We use a comprehensive three-phase training approach to maximize performance:
 **Phase 3 - Decay (100B tokens)**: We finish with premium data sources including scientific papers, textbooks, and curated content while gradually reducing the learning rate.
 
 ### Modern Architecture Components
-Our models gain all the benefits of ModernBERT's speed, allowing them to be significantly faster than the previous generations of encoders.
+Our encoder models gain all the benefits of ModernBERT's speed, allowing them to be significantly faster than the previous generations of encoders.
 
 ### Data Sources and Quality
 
@@ -74,18 +74,18 @@ Unlike ModernBERT, **all our training data is public and reproducible**:
 
 ![Data used to train Ettin models](https://github.com/JHU-CLSP/ettin-encoder-vs-decoder/blob/main/assets/training_data.jpg?raw=true)
 
-You can continue train these models on new data or propose a new recipe to further improve results!
+You can continue to train these models on new data or propose a new recipe to further improve results!
 
 ## Encoder Results: Beating ModernBERT
 
-Our encoder models **outperform ModernBERT** across all tasks and model sizes, while using completely open training data. Since we provide a large range of sizes, you can now use ModernBERT-style models in smaller sizes (great for on-device or for fast-inference) or power up with a 1B-sized encoder that crushes the competition.
+Our encoder models **outperform ModernBERT** across all tasks and model sizes, while using completely open training data. Since we provide a large range of sizes, you can now use ModernBERT-style models in smaller sizes (great for on-device or for fast-inference), or power up with a 1B-sized encoder that crushes the competition.
 
 ![Encoder performance comparison showing Ettin models beating ModernBERT](https://github.com/JHU-CLSP/ettin-encoder-vs-decoder/blob/main/assets/encoder_results.jpg?raw=true)
 
 
 ## Decoder Results: Beating Llama 3.2 and SmolLM2
 
-Applying the same recipe to decoder models yields equally impressive results, with our models **outperforming established baselines** such as Llama 3.2 and SmolLM 2:
+Applying the same recipe to decoder models yields equally impressive results, with our models **outperforming or matching established baselines** such as Llama 3.2 and SmolLM2:
 
 ![Decoder performance comparison showing Ettin models beating Llama 3.2 and SmolLM2](https://github.com/JHU-CLSP/ettin-encoder-vs-decoder/blob/main/assets/decoder_results.jpg?raw=true)
 
@@ -109,9 +109,9 @@ The results show clear patterns:
 
 ### Cross-Objective Training Falls Short
 
-Due to the lack of new encoder models, works like [LLM2Vec](https://arxiv.org/abs/2404.05961) have proposed continue pre-training decoders with MLM. We can now test the effectiveness of this strategy!
+Due to the lack of new encoder models, works like [LLM2Vec](https://arxiv.org/abs/2404.05961) have proposed to continue pre-training decoders with MLM. We can now test the effectiveness of this strategy!
 
-We switched the objective and continue trained our models with the opposite objective for 50B additional token. However, we found that:
+We switched the objective and continued to train our models with the opposite objective for 50B additional tokens. This is what we found:
 
 - **Encoder-from-decoder**: Still trails native encoders on classification/retrieval
 - **Decoder-from-encoder**: Significantly worse than native decoders, especially at larger scales. This may be because the encoders were trained with MLM instead of MNTP (masked next token prediction) as proposed by LLM2Vec.
