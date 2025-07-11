@@ -54,7 +54,7 @@ We build on the ModernBERT recipe, which borrowed modern techniques from decoder
 We train six different sizes, ranging from 17M to 1B parameters. This allows us to test the effects of scale, and provides a wide variety of models for you to use!
 No matter if you need a blazing fast on-device model or a powerful but slower model, we got you covered!
 
-![Sizes of Ettin models](https://github.com/JHU-CLSP/ettin-encoder-vs-decoder/blob/main/assets/sizes.jpg?raw=true)
+![Sizes of Ettin models](https://github.com/JHU-CLSP/ettin-encoder-vs-decoder/blob/main/assets/sizes_small.png?raw=true)
 
 ### Three-Phase Training Process
 
