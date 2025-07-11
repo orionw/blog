@@ -183,7 +183,8 @@ generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
 ## Fine-tuning Examples
 
 ### Encoders
-<details><summary>Click to see how to finetune this into a dense embedding model with Sentence Transformers</summary> 
+<details><summary>Click to see how to finetune this into a dense embedding model using Sentence Transformers</summary> 
+
 ```python
 import argparse
 
@@ -364,7 +365,7 @@ if __name__ == "__main__":
 ```
 </details>
 
-<details><summary>Click to see how to finetune this into a sparse retrieval model using sentence-transformers</summary>
+<details><summary>Click to see how to finetune this into a sparse retrieval model using Sentence Transformers</summary>
 
 ```python
 import logging
@@ -456,7 +457,7 @@ model.push_to_hub(run_name)
 ```
 </details>
 
-<details><summary>Click to see how to finetune this into a reranker model using sentence-transformers</summary>
+<details><summary>Click to see how to finetune this into a reranker model using Sentence Transformers</summary>
 
 ```python
 import logging
