@@ -184,7 +184,7 @@ generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
 ### Encoders
 <details><summary>Click to see how to finetune this into a dense embedding model with Sentence Transformers</summary> 
-
+```python
 import argparse
 
 from datasets import load_dataset
@@ -276,6 +276,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+```
 </details>
 
 
